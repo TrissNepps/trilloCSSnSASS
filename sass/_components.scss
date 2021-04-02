@@ -1,0 +1,611 @@
+/////////////////////////////
+//LOGO
+
+.logo {
+  height: 3.25rem;
+  margin-left: 2rem;
+}
+
+/////////////////////////////
+//SEARCHBOX
+.search {
+  // background-color: green; //for testing -
+  flex: 0 0 40%;
+
+  display: flex; //This flex item becomes flex container
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: $bp-smaller) {
+    order: 1;
+    flex: 0 0 100%;
+    background-color: var(--color-grey-light-2);
+  }
+
+  &__input {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: var(--color-grey-light-2);
+    border: none;
+    padding: 0.7rem 2rem;
+    border-radius: 100rem;
+    width: 90%;
+    transition: all 0.2s;
+    margin-right: -3.25rem;
+
+    &:focus {
+      outline: none;
+      width: 100%;
+      background-color: var(--color-grey-light-3);
+    }
+
+    &::-webkit-input-placeholder {
+      font-weight: 100;
+      color: var(--color-grey-light-4);
+    }
+  }
+
+  &__input:focus + &__button {
+    background-color: var(--color-grey-light-2);
+  }
+
+  &__button {
+    border: none;
+    background-color: var(--color-grey-light-2);
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+  }
+
+  &__icon {
+    //these are SVG icons so set W and H to size
+    width: 2rem;
+    height: 2rem;
+    fill: var(--color-grey-dark-3);
+  }
+}
+
+/////////////////////////////
+//USER NAVIGATION
+.user-nav {
+  // background-color: greenyellow; //for testing -- we want user navigation on the right side
+  align-self: stretch; //this makes all three elements take up the total vertical width of the header container
+  display: flex; //this turns the user-nav into a flex container with the contents becoming flex items
+  align-items: center;
+
+  & > * {
+    //this targets user-nav and all of its direct children (icon-box, icon-box and __user)
+    padding: 0 2rem;
+    cursor: pointer;
+    height: 100%; //this makes the background color hover the entire area but it also shifts the icons and photo to the top of the header container - so in iconbox we use display flex
+    display: flex;
+    align-items: center; //now the two icons and user photo become flex containers and are propery aligned within the header
+  }
+
+  & > *:hover {
+    background-color: var(--color-grey-light-2);
+  }
+
+  &__icon-box {
+    position: relative; //this is for positioning the number inside the notification
+  }
+
+  &__icon {
+    height: 2.25rem;
+    width: 2.25rem;
+    fill: var(--color-grey-dark-2);
+  }
+
+  &__notification {
+    font-size: 0.8rem;
+    height: 1.75rem;
+    width: 1.75rem;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: #fff;
+
+    position: absolute;
+    top: 1.5rem;
+    right: 1.1rem; //for positioning the number inside the notification
+
+    //then use flexbox to finish aligning the number inside the notifcation blurb
+    display: flex;
+    justify-content: center;
+    align-items: center; //finished!
+  }
+
+  &__user {
+  }
+
+  &__user-photo {
+    height: 3.75rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+
+  &__user-name {
+  }
+}
+
+/////////////////////////////
+//SIDEBAR NAVIGATION
+.side-nav {
+  font-size: 1.4rem;
+  list-style: none;
+  margin-top: 3.5rem;
+
+  @media only screen and (max-width: $bp-medium) {
+    display: flex;
+    margin: 0;
+  }
+
+  &__item {
+    position: relative;
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+
+      @media only screen and (max-width: $bp-medium) {
+        margin-bottom: 0;
+      }
+    }
+
+    @media only screen and (max-width: $bp-medium) {
+      flex: 1;
+    }
+  }
+
+  &__item::before {
+    //this is the small line that expands and then goes to the right of the sidenav
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--color-primary);
+    transform: scaleY(0);
+    transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
+      background-color 0.1s; //this sets the animation for the red sidebar link and the background color is for the active state change
+  }
+
+  &__item:hover::before,
+  &__item--active::before {
+    transform: scaleY(1);
+    width: 100%;
+  }
+
+  &__item:active::before {
+    background-color: var(--color-primary-light);
+  }
+
+  &__link:link,
+  &__link:visited {
+    color: var(--color-grey-light-1);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+    padding: 1.5rem 3rem;
+    position: relative;
+    z-index: 10; //must have position set for zindex to work
+
+    display: flex;
+    align-items: center; //these two lines centers the 4 icons with the text vertically. this is their parent container.
+
+    @media only screen and (max-width: $bp-medium) {
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+      flex-direction: column;
+      padding: 1.5rem 0.5rem;
+    }
+  }
+
+  // &__link:hover {
+  //   color: rebeccapurple;
+  // }
+
+  &__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-right: 2rem;
+    fill: currentColor; //means the current of the parent (grey light 1)
+
+    @media only screen and (max-width: $bp-small) {
+      margin-right: 0;
+      margin-bottom: 0.7rem;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+/////////////////////////////
+//COPYRIGHT
+.legal {
+  font-size: 1.2rem;
+  color: var(--color-grey-light-4);
+  text-align: center;
+  padding: 2.5rem;
+
+  @media only screen and (max-width: $bp-medium) {
+    display: none;
+  }
+}
+
+/////////////////////////////
+//GALLERY
+.gallery {
+  display: flex;
+
+  &__photo {
+    width: 100%; //always define w or h in % so img stays flud
+    display: block;
+  }
+}
+
+/////////////////////////////
+//OVERVIEW
+.overview {
+  display: flex;
+  // justify-content: space-between; does not work for this situation
+  align-items: center;
+  border-bottom: var(--line);
+
+  &__heading {
+    font-size: 2.25rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1.5rem 3rem;
+
+    @media only screen and (max-width: $bp-small) {
+      font-size: 1.8rem;
+      padding: 1.25rem 2rem;
+    }
+  }
+
+  &__stars {
+    // flex: 1; //we use this instead of justify content to split up the elements in the hotel overview section correctly
+    // background-color: rebeccapurple; //the element has expanded to occupy all available space but it is not ideal bc eleent should only be size of its content - we only want the effect on the stars not the entire block - we want to create the spcae without spreading out the entire element
+
+    //best method instead of justify content or flex: 1 is to set margin-right to auto
+    margin-right: auto; //now the element only occupies the space that it needs (the 5 stars) and the white space is the auto-calculated margin
+    display: flex;
+  }
+
+  &__icon-star,
+  &__icon-location {
+    width: 1.75rem;
+    height: 1.75rem;
+    fill: var(--color-primary);
+  }
+
+  &__location {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon-location {
+    margin-right: 0.5rem;
+  }
+
+  &__rating {
+    background-color: var(--color-primary);
+    color: #fff;
+    margin-left: 3rem;
+    padding: 0 2.25rem;
+    align-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @media only screen and (max-width: $bp-small) {
+      padding: 0 1.5rem;
+    }
+  }
+
+  &__rating-average {
+    font-size: 2.25rem;
+    font-weight: 300;
+    margin-bottom: -3px;
+
+    @media only screen and (max-width: $bp-small) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__rating-count {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+
+    @media only screen and (max-width: $bp-small) {
+      font-size: 0.5rem;
+    }
+  }
+}
+
+/////////////////////////////
+//BUTTON INLINE
+.btn-inline {
+  border: none;
+  color: var(--color-primary);
+  font-size: inherit;
+  border-bottom: 1px solid currentColor; //gives the border the same color as the text
+  padding-bottom: 2px;
+  display: inline-block;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  & span {
+    margin-left: 3px;
+  }
+
+  &:hover {
+    color: var(--color-grey-dark-1);
+
+    span {
+      margin-left: 8px;
+      transition: margin-left 0.2s;
+    }
+  }
+
+  &:focus {
+    outline: none;
+    animation: pulsate 1s infinite;
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.25);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+/////////////////////////////
+//PARAGRAPH
+.paragraph:not(:last-of-type) {
+  //this targets the two paragraphs and the last one wont have the margin. it applies only to the last type of an element (paragraph)
+  margin-bottom: 2rem;
+}
+
+/////////////////////////////
+//LIST
+
+.list {
+  list-style: none;
+  margin: 3rem 0;
+  padding: 3rem;
+  border-top: var(--line);
+  border-bottom: var(--line);
+
+  display: flex; //the next 3 lines go with these items formatting
+  flex-wrap: wrap;
+
+  &__item {
+    flex: 0 0 50%; //This makes the list items in to two columns that are side by side
+    margin-bottom: 0.7rem;
+  }
+  //difficult to use a sprite image in css - easier to use a single icon in css and since only using 1 we can just include the icon itself (chevron-thin-right) that we got from the SVG folder. easiest way to input is using background image below
+
+  &__item::before {
+    content: "";
+    display: inline-block;
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.7rem;
+
+    background-image: url(../img/chevron-thin-right.svg);
+    background-size: cover;
+    //before each of these item elements we create a small pseudo element that will have this background image. cleaner practice then putting directly on the item
+    // background-image: url(../img/chevron-thin-right.svg);
+    // background-size: cover; //cannot color images using fill when implemented using this approach - must use mask. Above approach is for older browsers
+    @supports (-webkit-mask-image: url()) or (mask-image: url()) {
+      //newer approach uses mask - a mask defines an area where we can look through the element and see what is behind it. So we will set the background color and set it to solid and then use the ico as the mask so we can look through the mask to see the background in the area where the icon is
+      background-color: var(--color-primary);
+      -webkit-mask-image: url(../img/chevron-thin-right.svg); //ta dah!
+      -webkit-mask-size: cover; //need this for resizing height and width
+      mask-image: url(../img/chevron-thin-right.svg);
+      mask-size: cover;
+      background-image: none;
+    }
+  }
+}
+
+/////////////////////////////
+//RECOMMEND
+.recommend {
+  font-size: 1.3rem;
+  color: var(--color-grey-dark-3);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__count {
+  }
+
+  &__friends {
+    display: flex;
+  }
+
+  &__photo {
+    box-sizing: content-box; //this is used to prevent the border from cropping the iages smaller - it keeps the images the same size while making the border
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    border: 3px solid #fff;
+
+    &:not(:last-child) {
+      margin-right: -2rem;
+    }
+  }
+}
+
+/////////////////////////////
+//REVIEWS
+.review {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+
+  @media only screen and (max-width: $bp-medium) {
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  &__text {
+    position: relative;
+    z-index: 10;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+
+    margin-top: 1.5rem;
+  }
+
+  &__photo {
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+  }
+
+  &__user-box {
+    margin-right: auto;
+  }
+
+  &__user-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  &__user-date {
+    font-size: 1rem;
+    color: var(--color-grey-dark-3);
+  }
+
+  &__rating {
+    color: var(--color-primary);
+    font-size: 2.2rem;
+    font-weight: 300;
+  }
+
+  &::before {
+    content: "\201C"; //this gives the dbl qoutation symbol for the review boxes
+    position: absolute;
+    top: -2.75rem;
+    left: -1rem;
+    font-size: 20rem;
+    line-height: 1;
+    color: var(--color-grey-light-2);
+    font-family: sans-serif; //changes the shape
+    z-index: 1;
+  }
+}
+
+/////////////////////////////
+//CALL TO ACTION
+.cta {
+  padding: 3.5rem 0;
+  text-align: center;
+
+  @media only screen and (max-width: $bp-medium) {
+    padding: 2.5rem 0;
+  }
+
+  &__book-now {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+  }
+}
+
+/////////////////////////////
+//PCALL TO ACTION BUTTON
+.btn {
+  font-size: 1.5rem;
+  border: none;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-radius: 10rem;
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary-light),
+    var(--color-primary-dark)
+  );
+  color: #fff;
+  position: relative;
+  overflow: hidden; //makes the text outside the button disappear!
+  cursor: pointer;
+
+  & > * {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    transition: all 0.2s;
+  }
+
+  &__visible {
+    padding: 2rem 7.5rem;
+  }
+
+  &__invisible {
+    position: absolute;
+    padding: 2rem 0;
+    left: 0;
+    top: -100%; //this moves the second strong up out of the view so only can see book now almost
+  }
+
+  &:hover {
+    background-image: linear-gradient(
+      to left,
+      var(--color-primary-light),
+      var(--color-primary-dark)
+    );
+  }
+
+  &:hover &__visible {
+    transform: translateY(100%);
+  }
+
+  &:hover &__invisible {
+    top: 0;
+  }
+
+  &:focus {
+    outline: none;
+    animation: pulsate 1s infinite;
+  }
+}

@@ -1,0 +1,101 @@
+.container {
+  max-width: 120rem; //This will cause the container to shrink if there is not enough space for it
+  margin: 8rem auto;
+  background-color: var(--color-grey-light-2);
+  box-shadow: var(--shadow-dark);
+
+  min-height: 50rem; //testing
+
+  @media only screen and (max-width: $bp-largest) {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.header {
+  font-size: 1.4rem;
+  height: 7rem;
+  background-color: #fff;
+  border-bottom: var(--line);
+  display: flex; //this puts the logo, searchbar, and user-nav side by side in a vertical column
+  justify-content: space-between; //this aligns the elements on the main axis (makes them horizontal) and separates all the elements how we want
+  align-items: center; //this centers the items on the cross axis --- with justify content center. //now just need to format the actual elements
+
+  @media only screen and (max-width: $bp-smaller) {
+    flex-wrap: wrap;
+    align-content: space-around;
+    height: 11rem;
+  }
+}
+
+.content {
+  display: flex;
+
+  @media only screen and (max-width: $bp-medium) {
+    flex-direction: column;
+  }
+}
+
+.sidebar {
+  background-color: var(--color-grey-dark-1);
+
+  flex: 0 0 18%; //this determines the width of the sidebar setting flex-basis. will auto shrink bc a %
+
+  display: flex;
+  flex-direction: column; //this changes axis from left to right to top/bottom
+  justify-content: space-between; //this pushes the legal text to the bottom and keeps the icons at the top
+}
+
+.hotel-view {
+  background-color: #fff;
+  // background-color: rebeccapurple;
+
+  flex: 1; //This tells the element to grow as much as it can, across all availablae space, whch causes it to occupy the remaining 82% of space
+
+  // height: 80rem; //Testing
+}
+
+.detail {
+  font-size: 1.4rem;
+  display: flex;
+  padding: 4.5rem;
+  background-color: var(--color-grey-light-1);
+  border-bottom: var(--line);
+
+  @media only screen and (max-width: $bp-medium) {
+    padding: 3rem;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    flex-direction: column;
+  }
+}
+
+.description {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  flex: 0 0 60%; //sets the description to take up 60% then the userreviews flex 1 tells tha to take up all the available spcae left
+  margin-right: 4.5rem; //gives gap between two containers
+
+  @media only screen and (max-width: $bp-medium) {
+    display: flex;
+    padding: 2rem;
+    margin-right: 3rem;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    margin-right: 0;
+    margin-bottom: 3rem;
+  }
+}
+
+.user-reviews {
+  // background-color: rebeccapurple;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
